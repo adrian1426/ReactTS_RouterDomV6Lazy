@@ -1,6 +1,6 @@
 import { BrowserRouter, NavLink, Routes, Route, Navigate } from 'react-router-dom';
 import logo from '../logo.svg';
-import { EmpleadosPage, ProductosPage, UsuariosPage } from '../module-lazy-load/pages';
+import { routes } from '../routes/routes';
 
 const Navigation = () => {
   return (
@@ -9,39 +9,33 @@ const Navigation = () => {
         <nav>
           <img src={logo} alt="logo" />
           <ul>
-            <li>
-              <NavLink
-                to='/usuarios'
-                className={({ isActive }) => isActive ? 'nav-active' : ''}
-              >
-                Usuarios
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to='/productos'
-                className={({ isActive }) => isActive ? 'nav-active' : ''}
-              >
-                Productos
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to='/empleados'
-                className={({ isActive }) => isActive ? 'nav-active' : ''}
-              >
-                Empleados
-              </NavLink>
-            </li>
+            {
+              routes.map(({ to, nameNavLink }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    className={({ isActive }) => isActive ? 'nav-active' : ''}
+                  >
+                    {nameNavLink}
+                  </NavLink>
+                </li>
+              ))
+            }
           </ul>
         </nav>
 
         <Routes>
-          <Route path='/usuarios' element={<UsuariosPage />} />
-          <Route path='/productos' element={<ProductosPage />} />
-          <Route path='/empleados' element={<EmpleadosPage />} />
+          {
+            routes.map(({ path, Component }) => (
+              <Route
+                key={path}
+                path={path}
+                element={<Component />}
+              />
+            ))
+          }
 
-          <Route path='/*' element={<Navigate to='/usuarios' replace />} />
+          <Route path='/*' element={<Navigate to={routes[0].to} replace />} />
         </Routes>
 
       </div>
