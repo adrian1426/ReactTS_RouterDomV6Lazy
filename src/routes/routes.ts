@@ -1,11 +1,17 @@
-import { EmpleadosPage, ProductosPage, UsuariosPage } from "../module-lazy-load/pages";
+import { lazy, LazyExoticComponent } from 'react';
+
+type JSXComponent = () => JSX.Element;
 
 interface Route {
   to: string,
   nameNavLink: string,
   path: string,
-  Component: () => JSX.Element
+  Component: LazyExoticComponent<JSXComponent> | JSXComponent
 };
+
+const UsuariosPage = lazy(() => import('../module-lazy-load/pages/UsuariosPage'));
+const ProductosPage = lazy(() => import('../module-lazy-load/pages/ProductosPage'));
+const EmpleadosPage = lazy(() => import('../module-lazy-load/pages/EmpleadosPage'));
 
 export const routes: Route[] = [
   {
