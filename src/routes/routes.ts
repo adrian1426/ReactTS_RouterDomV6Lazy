@@ -9,9 +9,9 @@ interface Route {
   Component: LazyExoticComponent<JSXComponent> | JSXComponent
 };
 
-const UsuariosPage = lazy(() => import('../module-lazy-load/pages/UsuariosPage'));
-const ProductosPage = lazy(() => import('../module-lazy-load/pages/ProductosPage'));
-const EmpleadosPage = lazy(() => import('../module-lazy-load/pages/EmpleadosPage'));
+const UsuariosPage = lazy(() => import(/*webpackChunkName: "Chunk_UsuariosPage"*/'../module-lazy-load/pages/UsuariosPage'));
+const ProductosPage = lazy(() => import(/*webpackChunkName: "Chunk_ProductosPage"*/'../module-lazy-load/pages/ProductosPage'));
+const EmpleadosPage = lazy(() => import(/*webpackChunkName: "Chunk_EmpleadosPage"*/'../module-lazy-load/pages/EmpleadosPage'));
 
 export const routes: Route[] = [
   {
