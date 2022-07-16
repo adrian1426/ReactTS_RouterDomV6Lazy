@@ -1,4 +1,5 @@
 import { lazy, LazyExoticComponent } from 'react';
+import Venta from '../module-lazy-load/components/Venta';
 
 type JSXComponent = () => JSX.Element;
 
@@ -9,9 +10,8 @@ interface Route {
   Component: LazyExoticComponent<JSXComponent> | JSXComponent
 };
 
+const Layout = lazy(() => import(/*webpackChunkName: "Chunk_Layout"*/'../module-lazy-load/layout/LayoutLazy'));
 const UsuariosPage = lazy(() => import(/*webpackChunkName: "Chunk_UsuariosPage"*/'../module-lazy-load/pages/UsuariosPage'));
-const ProductosPage = lazy(() => import(/*webpackChunkName: "Chunk_ProductosPage"*/'../module-lazy-load/pages/ProductosPage'));
-const EmpleadosPage = lazy(() => import(/*webpackChunkName: "Chunk_EmpleadosPage"*/'../module-lazy-load/pages/EmpleadosPage'));
 
 export const routes: Route[] = [
   {
@@ -21,15 +21,15 @@ export const routes: Route[] = [
     Component: UsuariosPage
   },
   {
-    to: '/productos',
-    nameNavLink: 'Productos',
-    path: '/productos',
-    Component: ProductosPage
+    to: '/ventas',
+    nameNavLink: 'ventas',
+    path: '/ventas',
+    Component: Venta
   },
   {
-    to: '/empleados',
-    nameNavLink: 'Empleados',
-    path: '/empleados',
-    Component: EmpleadosPage
+    path: '/layout/*',
+    to: '/layout',
+    nameNavLink: 'layout',
+    Component: Layout
   }
 ];
